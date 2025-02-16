@@ -1,0 +1,34 @@
+name: Run Frontend Tests
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📂 Change directory to frontend
+        working-directory: kyc-ocr-frontend
+        run: echo "Running tests inside kyc-ocr-frontend"
+
+      - name: 🏗️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: kyc-ocr-frontend/package-lock.json
+
+      - name: 📦 Install dependencies
+        working-directory: kyc-ocr-frontend
+        run: npm install
+
+      - name: 🧪 Run tests
+        working-directory: kyc-ocr-frontend
+        run: npm run test
