@@ -1,0 +1,39 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+*.local
+dist-ssr
+
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+#env
+# Environment variables
+kyc-ocr-backend/.env
+kyc-ocr-frontend/.env
+
+
+kyc-ocr-backend/uploads/
+kyc-ocr-frontend/dist/
+kyc-ocr-frontend/node_modules/
+kyc-ocr-frontend/.env
+kyc-ocr-frontend/.env.local
+kyc-ocr-frontend/.env.development.local
+kyc-ocr-frontend/.env.test.local
+kyc-ocr-frontend/.env.production.local

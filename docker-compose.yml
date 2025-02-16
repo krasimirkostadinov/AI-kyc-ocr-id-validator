@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./kyc-ocr-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    command: ["npm", "run", "dev", "--", "--host"]
+    volumes:
+      - ./kyc-ocr-frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_BACKEND_URL=http://backend:5000
+
+  backend:
+    build: ./kyc-ocr-backend
+    ports:
+      - "5000:5000"
+    command: ["npm", "start"]
+    volumes:
+      - ./kyc-ocr-backend:/app
+      - /app/node_modules
