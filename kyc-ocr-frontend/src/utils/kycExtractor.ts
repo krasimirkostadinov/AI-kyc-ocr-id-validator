@@ -42,3 +42,10 @@ export const extractKYCData = (ocrText: string): Partial<ExpectedKYC> => {
 
   return kycData;
 };
+
+export const normalizeName = (name: string): string =>
+  name
+    .replace(/,/g, '')               // remove commas
+    .replace(/\s+/g, ' ')            // normalize whitespace
+    .trim()
+    .toLowerCase();

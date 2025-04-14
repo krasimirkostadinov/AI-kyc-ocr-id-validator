@@ -7,7 +7,7 @@ export const getAccessToken = async (): Promise<string | null> => {
   try {
     const backendUrl =
       import.meta.env.MODE === "development"
-        ? "http://localhost:5000"
+        ? "http://localhost:5001"
         : import.meta.env.VITE_BACKEND_URL;
     const { data } = await axios.get(`${backendUrl}/get-google-token`);
     return data.access_token;

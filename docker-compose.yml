@@ -1,7 +1,6 @@
-version: '3.8'
-
 services:
   frontend:
+    platform: linux/arm64
     build: ./kyc-ocr-frontend
     ports:
       - "5173:5173"
@@ -12,13 +11,38 @@ services:
       - ./kyc-ocr-frontend:/app
       - /app/node_modules
     environment:
-      - VITE_BACKEND_URL=http://backend:5000
+      - VITE_BACKEND_URL=http://backend:5001
+    develop:
+      watch:
+        - action: sync
+          path: ./kyc-ocr-frontend/src
+          target: /app/src
+        - action: rebuild
+          path: ./kyc-ocr-frontend/package.json
 
   backend:
+    platform: linux/arm64
     build: ./kyc-ocr-backend
     ports:
-      - "5000:5000"
+      - "5001:5000"
     command: ["npm", "start"]
     volumes:
       - ./kyc-ocr-backend:/app
       - /app/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: ./kyc-ocr-backend
+          target: /app
+        - action: rebuild
+          path: ./kyc-ocr-backend/package.json
+
+  # ocr_service:
+  #   platform: linux/arm64
+  #   build:
+  #     context: ./ocr-service
+  #   ports:
+  #     - "6000:6000"
+  #   volumes:
+  #     - ./ocr-service:/app
+  #   command: ["python", "ocr_service.py"]
