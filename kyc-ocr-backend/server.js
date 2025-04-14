@@ -4,6 +4,7 @@ const { exec } = require("child_process");
 const axios = require("axios");
 const fs = require("fs");
 const cors = require("cors");
+const { splitOcrByScript, inferGender } = require("./utils/validation");
 
 const app = express();
 const port = 5000;
@@ -46,29 +47,8 @@ app.post("/api/ocr", upload.single("image"), async (req, res) => {
     }
 });
 
-function splitOcrByScript(text) {
-    const latinLines = [];
-    const cyrillicLines = [];
 
-    for (const line of text.split('\n')) {
-        const trimmed = line.trim();
-        if (!trimmed) continue;
 
-        const isCyrillic = /[А-Яа-яЁё]/.test(trimmed);
-        (isCyrillic ? cyrillicLines : latinLines).push(trimmed);
-    }
-
-    return {
-        latinBlock: latinLines.join('\n'),
-        cyrillicBlock: cyrillicLines.join('\n')
-    };
-}
-
-function inferGender(text) {
-    if (/Пол\/Sec\s*(Ж|F)/.test(text)) return "F";
-    if (/Пол\/Sec\s*(М|M)/.test(text)) return "M";
-    return "";
-}
 
 async function analyzeWithMistral(text) {
     const { latinBlock, cyrillicBlock } = splitOcrByScript(text);

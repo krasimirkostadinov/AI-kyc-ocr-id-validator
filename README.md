@@ -129,5 +129,18 @@ graph TD
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
+## Testing
+
+```bash
+# Compare different LLM prompts
+npm run compare-prompts
+
+# Run tests
+npm test
+```
+
+Mock data available in `mock/` directory:
+- `personal_image.png` - Sample ID card
+
 
 
